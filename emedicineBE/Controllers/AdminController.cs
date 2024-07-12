@@ -11,9 +11,12 @@ namespace emedicineBE.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public AdminController(IConfiguration configuration)
+        private readonly DAL _dal;
+
+        public AdminController(IConfiguration configuration, DAL dal)
         {
             _configuration = configuration;
+            _dal = dal; 
         }
 
         [HttpPost]
@@ -22,8 +25,7 @@ namespace emedicineBE.Controllers
         {
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
 
-            DAL dal = new DAL();
-            Response response = dal.AddUpdateMedicine(medicines, connection);
+            Response response = _dal.AddUpdateMedicine(medicines, connection);
 
             return response;
         }
@@ -34,8 +36,7 @@ namespace emedicineBE.Controllers
         {
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
             
-            DAL dal = new DAL();
-            Response response = dal.UserList(connection);
+            Response response = _dal.UserList(connection);
 
             return response;
         }

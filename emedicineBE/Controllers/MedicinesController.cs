@@ -11,9 +11,12 @@ namespace emedicineBE.Controllers
     public class MedicinesController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public MedicinesController(IConfiguration configuration)
+        private readonly DAL _dal;
+
+        public MedicinesController(IConfiguration configuration, DAL dal)
         {
             _configuration = configuration;
+            _dal = dal;
         }
 
         [HttpPost]
@@ -22,8 +25,7 @@ namespace emedicineBE.Controllers
         {
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
 
-            DAL dal = new DAL();
-            Response response = dal.AddToCart(cart, connection);
+            Response response = _dal.AddToCart(cart, connection);
 
             return response; 
         }
@@ -34,8 +36,7 @@ namespace emedicineBE.Controllers
         {
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
 
-            DAL dal = new DAL();
-            Response response = dal.PlaceOrder(users, connection);
+            Response response = _dal.PlaceOrder(users, connection);
 
             return response;
         }
@@ -46,11 +47,9 @@ namespace emedicineBE.Controllers
         {
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
 
-            DAL dal = new DAL();
-            Response response = dal.OrderList(users, connection);
+            Response response = _dal.OrderList(users, connection);
 
             return response;
         }
-    }
 }
-    
+        

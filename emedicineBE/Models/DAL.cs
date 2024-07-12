@@ -8,6 +8,7 @@ namespace emedicineBE.Models
         public Response Register(Users users, SqlConnection connection)
         {
             Response response = new Response();
+
             SqlCommand cmd = new SqlCommand("sp_Register", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@FirstName", users.FirstName);
@@ -19,7 +20,7 @@ namespace emedicineBE.Models
             cmd.Parameters.AddWithValue("@Status", "Pending");
 
             connection.Open();
-            int i = cmd.ExecuteNonQuery();
+            int i = cmd.ExecuteNonQuery(); 
             connection.Close();
 
             if (i > 0)
@@ -27,13 +28,12 @@ namespace emedicineBE.Models
                 response.StatusCode = 200;
                 response.StatusMessage = "User registered successfully";
             }
-            else 
+            else
             {
                 response.StatusCode = 100;
                 response.StatusMessage = "User registration failed";
             }
-
-
+            
             return response;
         }
 

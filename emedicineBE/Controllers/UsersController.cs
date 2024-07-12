@@ -11,9 +11,11 @@ namespace emedicineBE.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public UsersController(IConfiguration configuration)
+        private readonly DAL _dal;
+        public UsersController(IConfiguration configuration, DAL dal)
         {
             _configuration = configuration;
+            _dal = dal;
         }
 
         [HttpPost]
@@ -22,10 +24,8 @@ namespace emedicineBE.Controllers
         {
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
             
-            DAL dal = new DAL();
             Response response = new Response();
-
-            response = dal.Register(users, connection);
+            response = _dal.Register(users, connection);
 
             return response;
         }
@@ -36,10 +36,8 @@ namespace emedicineBE.Controllers
         { 
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
             
-            DAL dal = new DAL();
             Response response = new Response();
-
-            response = dal.Login(users, connection);
+            response = _dal.Login(users, connection);
 
             return response;
         }
@@ -50,8 +48,7 @@ namespace emedicineBE.Controllers
         {
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
             
-            DAL dal = new DAL();
-            Response response = dal.ViewUser(users, connection);
+            Response response = _dal.ViewUser(users, connection);
 
             return response;
         }
@@ -62,8 +59,7 @@ namespace emedicineBE.Controllers
         {
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
 
-            DAL dal = new DAL();
-            Response response = dal.UpdateProfile(users, connection);
+            Response response = _dal.UpdateProfile(users, connection);
             
             return response;
         }
