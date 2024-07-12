@@ -1,6 +1,16 @@
-@emedicineBE_HostAddress = http://localhost:5012
+@emediceBE_HostAddress = http://localhost:5001
 
-GET {{emedicineBE_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{emediceBE_HostAddress}}/api/users
+Content-Type: application/json
 
 ###
+
+POST {{emediceBE_HostAddress}}/api/users/registration
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "password": "securepassword"
+}
