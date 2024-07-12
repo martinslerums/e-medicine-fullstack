@@ -23,6 +23,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// CORS configuration
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin()
+           .AllowAnyHeader()
+           .AllowAnyMethod();
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -30,7 +38,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Specify HTTPS redirection if needed
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

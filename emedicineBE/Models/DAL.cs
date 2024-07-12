@@ -17,7 +17,8 @@ namespace emedicineBE.Models
             cmd.Parameters.AddWithValue("@Email", users.Email);
             cmd.Parameters.AddWithValue("@Fund", 0);
             cmd.Parameters.AddWithValue("@Type", "Users");
-            cmd.Parameters.AddWithValue("@Status", "Pending");
+            cmd.Parameters.AddWithValue("@Status", 1);
+            cmd.Parameters.AddWithValue("@CreatedOn", DateTime.Now);
 
             connection.Open();
             int i = cmd.ExecuteNonQuery(); 
@@ -282,6 +283,7 @@ namespace emedicineBE.Models
         public Response UserList(SqlConnection connection)
         {
             Response response = new Response();
+            Users users = new Users();
             List<Users> listUsers = new List<Users>();
 
             SqlDataAdapter adapter = new SqlDataAdapter("UserList", connection);

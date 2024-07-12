@@ -27,7 +27,7 @@ namespace emedicineBE.Controllers
 
             Response response = _dal.AddToCart(cart, connection);
 
-            return response; 
+            return response;
         }
 
         [HttpPost]
@@ -51,5 +51,7 @@ namespace emedicineBE.Controllers
 
             return response;
         }
+
+    }
 }
         

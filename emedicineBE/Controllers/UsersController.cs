@@ -19,7 +19,7 @@ namespace emedicineBE.Controllers
         }
 
         [HttpPost]
-        [Route("registration")]
+        [Route("register")]
         public Response register(Users users)
         {
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
